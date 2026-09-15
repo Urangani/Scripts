@@ -1,0 +1,4 @@
+github_repos.md
+__pycache__/
+*.pyc
+.DS_Store
