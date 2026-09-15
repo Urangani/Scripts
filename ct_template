@@ -1,0 +1,57 @@
+#!/usr/bin/env bash
+# ct_template - scaffold a minimal HTML/CSS/JS web project
+# Usage: ct_template <project-name>
+
+set -euo pipefail
+
+if [[ -z "${1:-}" ]]; then
+    echo "Usage: $0 <project-name>" >&2
+    exit 1
+fi
+
+PROJECT_NAME=$1
+
+if [[ -e "$PROJECT_NAME" ]]; then
+    echo "error: '$PROJECT_NAME' already exists" >&2
+    exit 1
+fi
+
+mkdir -p "$PROJECT_NAME"
+
+# Create HTML template
+cat > "$PROJECT_NAME/index.html" << 'EOF'
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Project</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Hello, world!</h1>
+  <script src="script.js"></script>
+</body>
+</html>
+EOF
+
+# Create CSS template
+cat > "$PROJECT_NAME/style.css" << 'EOF'
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+  background-color: #f4f4f4;
+}
+h1 {
+  color: #333;
+}
+EOF
+
+# Create JS template
+cat > "$PROJECT_NAME/script.js" << 'EOF'
+document.addEventListener("DOMContentLoaded", () => {
+  console.log("JavaScript is working!");
+});
+EOF
+
+echo "Project '$PROJECT_NAME' created with index.html, style.css, and script.js."
